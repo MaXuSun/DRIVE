@@ -149,12 +149,12 @@ class Trainer:
             self.writer.add_scalar("loss_iv", loss_iv, epoch * length + it)
             """train net C"""
             self.optimizer_C.zero_grad()
-            out1 = self.netC(self.netIV1(self.netF(data1)))
-            loss1 = self.criterion_ce(out1, label1) * 0.1
+            out1 = self.netC(self.netIV1(self.netF(data2)))
+            loss1 = self.criterion_ce(out1, label2) * 0.1
             loss1.backward(retain_graph=True)
             self.writer.add_scalar("loss_ce1", loss1, epoch * length + it)
-            out1 = self.netC(self.netIV2(self.netF(data1)))
-            loss1 = self.criterion_ce(out1, label1) * 0.9
+            out1 = self.netC(self.netIV2(self.netF(data3)))
+            loss1 = self.criterion_ce(out1, label2) * 0.9
             loss1.backward()
             self.writer.add_scalar("loss_ce2", loss1, epoch * length + it)
             self.optimizer_C.step()
